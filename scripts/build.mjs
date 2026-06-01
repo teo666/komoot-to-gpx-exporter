@@ -17,8 +17,11 @@ for (const target of targets) {
   const manifestPath = path.join(manifestsDir, `${target}.json`);
   const manifestContents = await readFile(manifestPath, "utf8");
 
+  const iconsDir = path.join(rootDir, "icons");
+
   await mkdir(targetDir, { recursive: true });
   await cp(sourceDir, targetDir, { recursive: true });
+  await cp(iconsDir, path.join(targetDir, "icons"), { recursive: true });
   await writeFile(path.join(targetDir, "manifest.json"), manifestContents, "utf8");
 }
 

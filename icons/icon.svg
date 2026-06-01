@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <!-- Background Linear Gradient -->
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#6AA127"/>
+      <stop offset="40%" stop-color="#55821E"/>
+      <stop offset="100%" stop-color="#2D480E"/>
+    </linearGradient>
+
+    <!-- GPX Capsule Gradient -->
+    <linearGradient id="capsuleGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1E3225"/>
+      <stop offset="100%" stop-color="#0E1913"/>
+    </linearGradient>
+
+    <!-- Professional Drop Shadow -->
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <!-- Background rounded square -->
+  <rect width="128" height="128" rx="28" fill="url(#bgGrad)"/>
+  
+  <!-- Subtle inner border for premium glossy finish -->
+  <rect x="0.75" y="0.75" width="126.5" height="126.5" rx="27.25" fill="none" stroke="rgba(255, 255, 255, 0.25)" stroke-width="1.5"/>
+
+  <!-- Official Komoot Logo (Scaled and Positioned with Shadow) -->
+  <g fill="#FFFFFF" filter="url(#shadow)" transform="translate(26, 16) scale(1.9)">
+    <!-- Bottom Wedge -->
+    <path d="M8.40252 33.288C7.92483 33.7657 7.92217 34.5438 8.43188 34.9872C9.86413 36.233 11.4906 37.2409 13.2493 37.9694C15.3854 38.8542 17.6748 39.3096 19.9868 39.3096C22.2988 39.3096 24.5882 38.8542 26.7243 37.9694C28.483 37.2409 30.1095 36.233 31.5417 34.9872C32.0514 34.5438 32.0488 33.7657 31.5711 33.288L21.7167 23.4336C20.7613 22.4782 19.2123 22.4782 18.2569 23.4336L8.40252 33.288Z"/>
+    <!-- Outer Ring with Cutouts -->
+    <path d="M19.9442 0.634356C23.5265 0.63601 27.0377 1.6305 30.0832 3.50611C33.1286 5.38171 35.5878 8.06406 37.1845 11.252C38.7812 14.4399 39.4523 18.0072 39.1221 21.553C38.835 24.6363 37.8007 27.5971 36.1168 30.1857C35.7142 30.8045 34.8498 30.8647 34.3244 30.3461L26.3947 22.5191C26.0445 22.1734 25.9466 21.6539 26.0683 21.177C26.1878 20.7088 26.2545 20.2194 26.2614 19.7152C26.3091 16.2451 23.5178 13.3931 20.0268 13.3452C16.5359 13.2972 13.6672 16.0715 13.6196 19.5416C13.6117 20.1159 13.6816 20.6733 13.8196 21.2039C13.9447 21.6845 13.8464 22.2096 13.4916 22.5571L5.54627 30.3391C5.01997 30.8546 4.15787 30.7925 3.75642 30.1748C2.07248 27.5838 1.03897 24.6205 0.753588 21.5353C0.425571 17.9892 1.09894 14.4227 2.69756 11.2362C4.29617 8.04972 6.75681 5.3695 9.80337 3.49669C12.85 1.62389 16.3618 0.632706 19.9442 0.634356Z"/>
+  </g>
+
+  <!-- Overlapping GPX Download Capsule -->
+  <g filter="url(#shadow)">
+    <!-- Pill container -->
+    <rect x="52" y="80" width="66" height="34" rx="17" fill="url(#capsuleGrad)" stroke="#C9F36B" stroke-width="1.5"/>
+    
+    <!-- Text 'GPX' -->
+    <text x="73" y="101.5" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.5">GPX</text>
+    
+    <!-- Download Arrow -->
+    <g stroke="#C9F36B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Arrow stem and head -->
+      <path d="M100 89 V99 M96 95 L100 99 L104 95"/>
+      <!-- Arrow tray -->
+      <path d="M95 103 H105"/>
+    </g>
+  </g>
+</svg>

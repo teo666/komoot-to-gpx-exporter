@@ -3,6 +3,11 @@
   "name": "Komoot GPX Export",
   "version": "0.1.0",
   "description": "Export Komoot tours as GPX files.",
+  "icons": {
+    "48": "icons/icon-48.png",
+    "96": "icons/icon-96.png",
+    "128": "icons/icon-128.png"
+  },
   "permissions": [
     "downloads"
   ],
@@ -29,10 +34,22 @@
   "action": {
     "default_title": "Komoot GPX Export"
   },
+  "web_accessible_resources": [
+    {
+      "resources": ["page-hook.js", "content.css"],
+      "matches": ["https://www.komoot.com/*"]
+    }
+  ],
   "browser_specific_settings": {
     "gecko": {
-      "id": "komoot-gpx-export@example.local",
-      "strict_min_version": "128.0"
+      "id": "{d7e8f9a0-1b2c-3d4e-5f6a-7b8c9d0e1f2b}",
+      "strict_min_version": "140.0",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    },
+    "gecko_android": {
+      "strict_min_version": "142.0"
     }
   }
 }

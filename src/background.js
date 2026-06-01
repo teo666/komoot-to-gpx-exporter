@@ -10,6 +10,10 @@
       return false;
     }
 
+    /**
+     * Internal async function to perform the download and handle errors.
+     * @returns {Promise<{ok: boolean, downloadId?: number, error?: string}>}
+     */
     const performDownload = async () => {
       if (!message.filename || !message.url) {
         throw new Error("Missing download payload.");
@@ -40,6 +44,12 @@
     return performDownload();
   });
 
+  /**
+   * Cross-browser compatible wrapper for chrome.downloads.download.
+   * Handles both callback-style and promise-style runtime APIs.
+   * @param {Object} options - Download options for the browser.
+   * @returns {Promise<number>} The download identifier.
+   */
   function downloadCompat(options) {
     return new Promise((resolve, reject) => {
       let settled = false;

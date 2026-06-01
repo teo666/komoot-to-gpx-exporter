@@ -32,7 +32,27 @@
   flex: 0 0 auto;
 }
 
+#komoot-gpx-export-panel-toggle {
+  appearance: none;
+  border: 1px solid rgba(246, 241, 231, 0.3);
+  border-radius: 999px;
+  background: rgba(246, 241, 231, 0.08);
+  color: #f6f1e7;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+  padding: 12px 14px;
+  min-height: 44px;
+  cursor: pointer;
+  flex: 0 0 auto;
+}
+
 #komoot-gpx-export-button[disabled] {
+  opacity: 0.72;
+  cursor: wait;
+}
+
+#komoot-gpx-export-panel-toggle[disabled] {
   opacity: 0.72;
   cursor: wait;
 }
@@ -52,6 +72,179 @@
   color: #c9f36b;
 }
 
+#komoot-gpx-export-panel {
+  position: fixed;
+  right: 14px;
+  top: max(14px, env(safe-area-inset-top, 0px));
+  width: min(92vw, 380px);
+  max-height: min(70vh, 560px);
+  border-radius: 18px;
+  padding: 12px;
+  background: rgba(19, 33, 28, 0.96);
+  box-shadow: 0 22px 54px rgba(0, 0, 0, 0.32);
+  backdrop-filter: blur(12px);
+  color: #f6f1e7;
+  z-index: 2147483647;
+  display: none;
+  overflow: hidden;
+}
+
+#komoot-gpx-export-panel[data-open="true"] {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.komoot-gpx-export-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.komoot-gpx-export-panel-header h2 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.komoot-gpx-export-panel-header button {
+  appearance: none;
+  border: 1px solid rgba(246, 241, 231, 0.28);
+  border-radius: 999px;
+  background: rgba(246, 241, 231, 0.07);
+  color: #f6f1e7;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+#komoot-gpx-export-empty {
+  font-size: 13px;
+  color: rgba(246, 241, 231, 0.78);
+}
+
+#komoot-gpx-export-track-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+  overflow: auto;
+}
+
+.komoot-gpx-export-track-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
+  gap: 6px 10px;
+  align-items: center;
+  border-radius: 12px;
+  background: rgba(246, 241, 231, 0.08);
+  border: 1px solid rgba(246, 241, 231, 0.12);
+  padding: 8px;
+}
+
+.komoot-gpx-export-track-title {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: #f6f1e7;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+  width: 100%;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}
+
+.komoot-gpx-export-track-meta {
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
+  color: rgba(246, 241, 231, 0.78);
+  font-size: 11px;
+}
+
+.komoot-gpx-export-track-remove {
+  appearance: none;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(246, 241, 231, 0.12);
+  color: rgba(246, 241, 231, 0.7);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  justify-self: end;
+  align-self: start;
+}
+
+.komoot-gpx-export-track-remove:hover {
+  background: rgba(255, 176, 176, 0.2);
+  color: #ffb0b0;
+}
+
+.komoot-gpx-export-track-download {
+  appearance: none;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #f2d67a, #c9f36b);
+  color: #162119;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  padding: 9px 12px;
+  min-height: 32px;
+  width: 100px;
+  text-align: center;
+  cursor: pointer;
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+  justify-self: end;
+}
+
+.komoot-gpx-export-panel-footer {
+  border-top: 1px solid rgba(246, 241, 231, 0.15);
+  padding-top: 10px;
+  flex: 0 0 auto;
+}
+
+#komoot-gpx-export-download-all {
+  appearance: none;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #f2d67a, #c9f36b);
+  color: #162119;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  padding: 12px 18px;
+  min-height: 42px;
+  width: 100%;
+  cursor: pointer;
+}
+
+#komoot-gpx-export-download-all[disabled] {
+  opacity: 0.72;
+  cursor: wait;
+}
+
 @media (max-width: 640px) {
   #komoot-gpx-export-root {
     width: calc(100vw - 16px);
@@ -66,7 +259,19 @@
     padding: 14px 16px;
   }
 
+  #komoot-gpx-export-panel-toggle {
+    min-height: 52px;
+    padding: 14px 16px;
+  }
+
   #komoot-gpx-export-status {
     font-size: 12px;
+  }
+
+  #komoot-gpx-export-panel {
+    right: 8px;
+    width: calc(100vw - 16px);
+    max-height: min(62vh, 520px);
+    border-radius: 16px;
   }
 }
