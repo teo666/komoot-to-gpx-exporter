@@ -1,0 +1,10 @@
+{
+  "name": "komoot-gpx-extension",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Cross-browser extension scaffold to export Komoot tours as GPX files.",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "Komoot GPX Export",
+  "version": "0.1.0",
+  "description": "Export Komoot tours as GPX files.",
+  "permissions": [
+    "downloads"
+  ],
+  "host_permissions": [
+    "https://api.komoot.de/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.komoot.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "css": [
+        "content.css"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_title": "Komoot GPX Export"
+  }
+}
