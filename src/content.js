@@ -8,7 +8,7 @@
   const EMPTY_ID = "komoot-gpx-export-empty";
   const DOWNLOAD_ALL_ID = "komoot-gpx-export-download-all";
   const API_VERSION = "v007";
-  const DISCOVERY_PATTERN = new RegExp(`https://api\\.komoot\\.de/${API_VERSION}/([^"'\\s<]+)/(\\d+)/coordinates(?:\\?[^"'\\s<>]*)?`, "i");
+  const DISCOVERY_PATTERN = new RegExp(`https://api\\.komoot\\.de/${API_VERSION}/([^"'\\\\\\s<]+)/(\\d+)/coordinates(?:\\?[^"'\\\\\\s<>]*)?`, "i");
   const DISCOVER_TOUR_PATTERN = new RegExp(`/api/${API_VERSION}/discover_tours/([^/?#]+)(?:[/?#]|$)`, "i");
   const MAX_TRACKS = 40;
   const DEBUG_PREFIX = "[komoot-gpx-debug]";
