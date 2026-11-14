@@ -1,67 +1,138 @@
-#komoot-gpx-export-root {
+:host {
+  all: initial;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+#komoot-gpx-export-widget {
+  --kge-bg: rgba(19, 33, 28, 0.96);
+  --kge-fg: #f6f1e7;
+  --kge-muted: rgba(246, 241, 231, 0.72);
+  --kge-line: rgba(246, 241, 231, 0.14);
+  --kge-accent: #c9f36b;
   position: fixed;
-  left: 50%;
-  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
-  transform: translateX(-50%);
-  z-index: 2147483647;
+  left: calc(12px + env(safe-area-inset-left, 0px));
+  bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  z-index: 2147483646;
+  box-sizing: border-box;
+  width: min(calc(100vw - 16px), 360px);
+  max-height: min(calc(100vh - 16px), 620px);
+  display: flex;
+  flex-direction: column;
+  border-radius: 18px;
+  background: var(--kge-bg);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--kge-fg);
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 14px;
+  line-height: 1.35;
+  overflow: hidden;
+}
+
+@supports (height: 100dvh) {
+  #komoot-gpx-export-widget {
+    max-height: min(calc(100dvh - 16px), 620px);
+  }
+}
+
+#komoot-gpx-export-widget[data-ready="false"] {
+  visibility: hidden;
+}
+
+#komoot-gpx-export-widget[data-dragging="true"] {
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+#komoot-gpx-export-widget button {
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#komoot-gpx-export-widget button:focus-visible {
+  outline: 2px solid var(--kge-accent);
+  outline-offset: 2px;
+}
+
+/* Header: drag handle + collapse toggle */
+
+#komoot-gpx-export-header {
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
-  gap: 12px;
-  width: min(calc(100vw - 24px), 480px);
-  padding: 10px 12px;
-  border-radius: 18px;
-  background: rgba(19, 33, 28, 0.94);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
-  backdrop-filter: blur(12px);
-  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  color: #f6f1e7;
+  gap: 10px;
+  padding: 10px 10px 10px 8px;
+  min-height: 56px;
+  box-sizing: border-box;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
-#komoot-gpx-export-button {
-  appearance: none;
-  border: 0;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #f2d67a, #c9f36b);
-  color: #162119;
-  font-size: 15px;
+#komoot-gpx-export-widget[data-dragging="true"] #komoot-gpx-export-header {
+  cursor: grabbing;
+}
+
+#komoot-gpx-export-widget[data-collapsed="false"] #komoot-gpx-export-header {
+  border-bottom: 1px solid var(--kge-line);
+}
+
+.komoot-gpx-export-grip {
+  flex: 0 0 auto;
+  width: 10px;
+  height: 18px;
+  margin-left: 2px;
+  opacity: 0.45;
+  background-image: radial-gradient(circle, var(--kge-fg) 1.4px, transparent 1.6px);
+  background-size: 5px 6px;
+}
+
+.komoot-gpx-export-heading {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.komoot-gpx-export-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
   font-weight: 700;
-  line-height: 1;
-  padding: 14px 18px;
-  min-height: 48px;
-  cursor: pointer;
-  flex: 0 0 auto;
 }
 
-#komoot-gpx-export-panel-toggle {
-  appearance: none;
-  border: 1px solid rgba(246, 241, 231, 0.3);
+#komoot-gpx-export-badge {
+  min-width: 18px;
+  padding: 2px 6px;
+  box-sizing: border-box;
   border-radius: 999px;
-  background: rgba(246, 241, 231, 0.08);
-  color: #f6f1e7;
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 1;
-  padding: 12px 14px;
-  min-height: 44px;
-  cursor: pointer;
-  flex: 0 0 auto;
-}
-
-#komoot-gpx-export-button[disabled] {
-  opacity: 0.72;
-  cursor: wait;
-}
-
-#komoot-gpx-export-panel-toggle[disabled] {
-  opacity: 0.72;
-  cursor: wait;
+  background: var(--kge-accent);
+  color: #162119;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.2;
+  text-align: center;
 }
 
 #komoot-gpx-export-status {
-  font-size: 13px;
-  line-height: 1.35;
-  flex: 1 1 auto;
-  min-width: 0;
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--kge-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#komoot-gpx-export-widget[data-collapsed="false"] #komoot-gpx-export-status {
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 #komoot-gpx-export-status[data-state="error"] {
@@ -69,70 +140,154 @@
 }
 
 #komoot-gpx-export-status[data-state="success"] {
-  color: #c9f36b;
+  color: var(--kge-accent);
 }
 
-#komoot-gpx-export-panel {
-  position: fixed;
-  right: 14px;
-  top: max(14px, env(safe-area-inset-top, 0px));
-  width: min(92vw, 380px);
-  max-height: min(70vh, 560px);
-  border-radius: 18px;
-  padding: 12px;
-  background: rgba(19, 33, 28, 0.96);
-  box-shadow: 0 22px 54px rgba(0, 0, 0, 0.32);
-  backdrop-filter: blur(12px);
-  color: #f6f1e7;
-  z-index: 2147483647;
-  display: none;
-  overflow: hidden;
+#komoot-gpx-export-collapse {
+  flex: 0 0 auto;
+  appearance: none;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid var(--kge-line);
+  border-radius: 50%;
+  background: rgba(246, 241, 231, 0.08);
+  color: var(--kge-fg);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-#komoot-gpx-export-panel[data-open="true"] {
+#komoot-gpx-export-collapse::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 0.15s ease;
+}
+
+#komoot-gpx-export-widget[data-collapsed="true"] #komoot-gpx-export-collapse::before {
+  transform: translateY(2px) rotate(-135deg);
+}
+
+/* Body */
+
+#komoot-gpx-export-body {
+  flex: 1 1 auto;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  padding: 10px 12px 12px;
 }
 
-.komoot-gpx-export-panel-header {
+#komoot-gpx-export-widget[data-collapsed="true"] #komoot-gpx-export-body {
+  display: none;
+}
+
+.komoot-gpx-export-actions {
+  flex: 0 0 auto;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
+  gap: 8px;
 }
 
-.komoot-gpx-export-panel-header h2 {
-  margin: 0;
-  font-size: 15px;
-  font-weight: 700;
-}
-
-.komoot-gpx-export-panel-header button {
+#komoot-gpx-export-button {
+  flex: 1 1 auto;
   appearance: none;
-  border: 1px solid rgba(246, 241, 231, 0.28);
+  border: 0;
   border-radius: 999px;
-  background: rgba(246, 241, 231, 0.07);
-  color: #f6f1e7;
-  font-size: 12px;
-  font-weight: 600;
+  background: linear-gradient(135deg, #f2d67a, #c9f36b);
+  color: #162119;
+  font-size: 14px;
+  font-weight: 700;
   line-height: 1;
-  padding: 8px 12px;
+  padding: 12px 16px;
+  min-height: 44px;
   cursor: pointer;
 }
 
-#komoot-gpx-export-empty {
+#komoot-gpx-export-button[disabled] {
+  opacity: 0.72;
+  cursor: wait;
+}
+
+#komoot-gpx-export-by-id {
+  flex: 0 0 auto;
+  appearance: none;
+  border: 1px solid rgba(246, 241, 231, 0.3);
+  border-radius: 999px;
+  background: rgba(246, 241, 231, 0.08);
+  color: var(--kge-fg);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  padding: 12px 16px;
+  min-height: 44px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.komoot-gpx-export-tabs {
+  flex: 0 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 999px;
+  background: rgba(246, 241, 231, 0.06);
+}
+
+.komoot-gpx-export-tab {
+  appearance: none;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--kge-muted);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  padding: 9px 10px;
+  min-height: 34px;
+  cursor: pointer;
+}
+
+.komoot-gpx-export-tab[data-active="true"] {
+  background: rgba(246, 241, 231, 0.16);
+  color: var(--kge-fg);
+}
+
+.komoot-gpx-export-view {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 0;
+  flex: 1 1 auto;
+}
+
+.komoot-gpx-export-footer {
+  border-top: 1px solid var(--kge-line);
+  padding-top: 10px;
+  flex: 0 0 auto;
+}
+
+.komoot-gpx-export-empty {
   font-size: 13px;
   color: rgba(246, 241, 231, 0.78);
 }
 
-#komoot-gpx-export-track-list {
+.komoot-gpx-export-list {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
   gap: 8px;
   overflow: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  min-height: 0;
 }
 
 .komoot-gpx-export-track-item {
@@ -145,6 +300,12 @@
   background: rgba(246, 241, 231, 0.08);
   border: 1px solid rgba(246, 241, 231, 0.12);
   padding: 8px;
+  position: relative;
+}
+
+.komoot-gpx-export-track-item[data-active="true"] {
+  border-color: rgba(201, 243, 107, 0.7);
+  background: rgba(201, 243, 107, 0.1);
 }
 
 .komoot-gpx-export-track-title {
@@ -162,8 +323,11 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  grid-column: 1 / 2;
+  grid-column: 1 / -1;
   grid-row: 1 / 2;
+  box-sizing: border-box;
+  padding-right: 36px;
+  min-height: 28px;
 }
 
 .komoot-gpx-export-track-meta {
@@ -171,6 +335,7 @@
   grid-row: 2 / 3;
   color: rgba(246, 241, 231, 0.78);
   font-size: 11px;
+  min-width: 0;
 }
 
 .komoot-gpx-export-track-remove {
@@ -189,10 +354,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  grid-column: 2 / 3;
-  grid-row: 1 / 2;
-  justify-self: end;
-  align-self: start;
+  position: absolute;
+  top: 8px;
+  right: 8px;
 }
 
 .komoot-gpx-export-track-remove:hover {
@@ -211,18 +375,37 @@
   line-height: 1;
   padding: 9px 12px;
   min-height: 32px;
-  width: 100px;
+  min-width: 100px;
+  white-space: nowrap;
   text-align: center;
   cursor: pointer;
+}
+
+.komoot-gpx-export-track-actions {
   grid-column: 2 / 3;
   grid-row: 2 / 3;
   justify-self: end;
+  display: flex;
+  gap: 6px;
 }
 
-.komoot-gpx-export-panel-footer {
-  border-top: 1px solid rgba(246, 241, 231, 0.15);
-  padding-top: 10px;
-  flex: 0 0 auto;
+.komoot-gpx-export-track-add {
+  appearance: none;
+  border: 1px solid rgba(246, 241, 231, 0.3);
+  border-radius: 999px;
+  background: rgba(246, 241, 231, 0.08);
+  color: #f6f1e7;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  padding: 9px 12px;
+  min-height: 32px;
+  cursor: pointer;
+}
+
+.komoot-gpx-export-track-add[disabled] {
+  opacity: 0.55;
+  cursor: default;
 }
 
 #komoot-gpx-export-download-all {
@@ -240,38 +423,164 @@
   cursor: pointer;
 }
 
+#komoot-gpx-export-clear-history {
+  appearance: none;
+  border: 1px solid rgba(255, 176, 176, 0.4);
+  border-radius: 999px;
+  background: transparent;
+  color: #ffb0b0;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  padding: 12px 18px;
+  min-height: 42px;
+  width: 100%;
+  cursor: pointer;
+}
+
 #komoot-gpx-export-download-all[disabled] {
   opacity: 0.72;
   cursor: wait;
 }
 
+#komoot-gpx-export-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.45);
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+#komoot-gpx-export-modal[data-open="true"] {
+  display: flex;
+}
+
+.komoot-gpx-export-modal-dialog {
+  box-sizing: border-box;
+  width: min(100%, 400px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 16px;
+  border-radius: 18px;
+  background: rgba(19, 33, 28, 0.98);
+  box-shadow: 0 22px 54px rgba(0, 0, 0, 0.4);
+  color: #f6f1e7;
+}
+
+.komoot-gpx-export-modal-dialog h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.komoot-gpx-export-modal-hint {
+  font-size: 13px;
+  color: rgba(246, 241, 231, 0.78);
+}
+
+#komoot-gpx-export-modal-input {
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid rgba(246, 241, 231, 0.3);
+  border-radius: 12px;
+  background: rgba(246, 241, 231, 0.08);
+  color: #f6f1e7;
+  font-size: 16px;
+  padding: 12px;
+  outline: none;
+}
+
+#komoot-gpx-export-modal-input:focus {
+  border-color: #c9f36b;
+}
+
+#komoot-gpx-export-modal-error {
+  font-size: 13px;
+  color: #ffb0b0;
+}
+
+.komoot-gpx-export-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.komoot-gpx-export-modal-cancel {
+  appearance: none;
+  border: 1px solid rgba(246, 241, 231, 0.3);
+  border-radius: 999px;
+  background: transparent;
+  color: #f6f1e7;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  padding: 12px 16px;
+  cursor: pointer;
+}
+
+#komoot-gpx-export-modal-submit {
+  appearance: none;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #f2d67a, #c9f36b);
+  color: #162119;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  padding: 12px 18px;
+  min-width: 100px;
+  cursor: pointer;
+}
+
+#komoot-gpx-export-modal-submit[disabled] {
+  opacity: 0.72;
+  cursor: wait;
+}
+
+
 @media (max-width: 640px) {
-  #komoot-gpx-export-root {
-    width: calc(100vw - 16px);
+  #komoot-gpx-export-widget {
+    left: calc(8px + env(safe-area-inset-left, 0px));
     bottom: calc(8px + env(safe-area-inset-bottom, 0px));
-    gap: 10px;
-    padding: 10px;
+    max-height: min(calc(100vh - 16px), 70vh);
     border-radius: 16px;
   }
 
-  #komoot-gpx-export-button {
-    min-height: 52px;
-    padding: 14px 16px;
+  @supports (height: 100dvh) {
+    #komoot-gpx-export-widget {
+      max-height: min(calc(100dvh - 16px), 70dvh);
+    }
   }
 
-  #komoot-gpx-export-panel-toggle {
-    min-height: 52px;
-    padding: 14px 16px;
+  #komoot-gpx-export-collapse {
+    width: 40px;
+    height: 40px;
   }
 
-  #komoot-gpx-export-status {
-    font-size: 12px;
+  #komoot-gpx-export-button,
+  #komoot-gpx-export-by-id {
+    min-height: 48px;
   }
 
-  #komoot-gpx-export-panel {
-    right: 8px;
-    width: calc(100vw - 16px);
-    max-height: min(62vh, 520px);
-    border-radius: 16px;
+  .komoot-gpx-export-track-download,
+  .komoot-gpx-export-track-add {
+    min-height: 36px;
+  }
+
+  .komoot-gpx-export-track-remove {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #komoot-gpx-export-collapse::before {
+    transition: none;
   }
 }

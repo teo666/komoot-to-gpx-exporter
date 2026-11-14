@@ -1,0 +1,258 @@
+{
+  "extName": {
+    "message": "Komoot GPX Export",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Export Komoot tours as GPX files.",
+    "description": "Extension description"
+  },
+  "headerHint": {
+    "message": "Drag to move, click to expand or collapse",
+    "description": "Tooltip of the draggable header"
+  },
+  "badgeTitle": {
+    "message": "Saved tracks",
+    "description": "Tooltip of the saved tracks counter"
+  },
+  "statusLooking": {
+    "message": "Looking for Komoot track data on this page.",
+    "description": "Initial status"
+  },
+  "addTrace": {
+    "message": "Add Trace",
+    "description": "Main button: add current track"
+  },
+  "addTraceTitle": {
+    "message": "Add the track currently shown to the saved list",
+    "description": "Tooltip of the main button"
+  },
+  "byIdButton": {
+    "message": "+ ID",
+    "description": "Button opening the add-by-ID dialog"
+  },
+  "byIdTitle": {
+    "message": "Add a track by its Komoot ID",
+    "description": "Tooltip of the + ID button"
+  },
+  "savedEmpty": {
+    "message": "No tracks added yet. Use “$1” to save the current track.",
+    "description": "Empty saved list. $1 = name of the Add Trace button"
+  },
+  "downloadAll": {
+    "message": "Download all",
+    "description": "Button: download every saved track"
+  },
+  "historyEmpty": {
+    "message": "No tracks seen yet. Open a tour on Komoot and it will show up here.",
+    "description": "Empty history"
+  },
+  "clearHistory": {
+    "message": "Clear history",
+    "description": "Button: clear the history"
+  },
+  "expandPanel": {
+    "message": "Expand panel",
+    "description": "Accessible label of the expand button"
+  },
+  "collapsePanel": {
+    "message": "Collapse panel",
+    "description": "Accessible label of the collapse button"
+  },
+  "modalTitle": {
+    "message": "Add track by ID",
+    "description": "Title of the add-by-ID dialog"
+  },
+  "modalHint": {
+    "message": "Tour ID (e.g. 984826729 or e984826729) or a Komoot tour link.",
+    "description": "Hint in the add-by-ID dialog"
+  },
+  "cancel": {
+    "message": "Cancel",
+    "description": "Cancel button"
+  },
+  "add": {
+    "message": "Add",
+    "description": "Add button"
+  },
+  "checking": {
+    "message": "Checking…",
+    "description": "Add button while the ID is verified"
+  },
+  "errorInvalidId": {
+    "message": "Enter a valid Komoot tour ID (digits, optionally prefixed with “e”) or a tour link.",
+    "description": "Invalid ID typed in the dialog"
+  },
+  "errorUnsupportedId": {
+    "message": "Unsupported tour ID format.",
+    "description": "Unsupported ID format"
+  },
+  "errorAddFailed": {
+    "message": "Failed to add the track.",
+    "description": "Generic add failure"
+  },
+  "errorLoadFailed": {
+    "message": "Could not load the track.",
+    "description": "Generic load failure"
+  },
+  "errorNetwork": {
+    "message": "Network error while contacting Komoot. Try again.",
+    "description": "Network error"
+  },
+  "errorNotFound": {
+    "message": "No tour found with ID $1.",
+    "description": "Tour not found. $1 = tour ID"
+  },
+  "errorPrivate": {
+    "message": "Tour $1 is private or not accessible.",
+    "description": "Tour private. $1 = tour ID"
+  },
+  "errorKomootStatus": {
+    "message": "Komoot answered with an error ($1).",
+    "description": "Komoot HTTP error. $1 = status code"
+  },
+  "errorInvalidResponse": {
+    "message": "Komoot returned an invalid response for this tour.",
+    "description": "Invalid response from Komoot"
+  },
+  "errorNoPoints": {
+    "message": "Tour $1 has no usable track points.",
+    "description": "Tour without points. $1 = tour ID"
+  },
+  "errorNotEnoughPoints": {
+    "message": "The track does not contain enough valid points to build a GPX file.",
+    "description": "Not enough points for a GPX"
+  },
+  "errorRequestFailed": {
+    "message": "Request to Komoot failed ($1).",
+    "description": "HTTP request failed. $1 = status code"
+  },
+  "statusTourFound": {
+    "message": "Tour data found. Ready to add.",
+    "description": "Status: tour found in page"
+  },
+  "statusTrackDetected": {
+    "message": "Track detected. Ready to add.",
+    "description": "Status: track detected"
+  },
+  "statusNoApiUrl": {
+    "message": "No Komoot track found yet. Open a tour and retry.",
+    "description": "Status: nothing found yet"
+  },
+  "errorNoCoordinatesUrl": {
+    "message": "Could not find a Komoot track on this page.",
+    "description": "No track on page when pressing Add Trace"
+  },
+  "statusSelected": {
+    "message": "Track selected: $1",
+    "description": "Status: track selected. $1 = track name"
+  },
+  "statusAdded": {
+    "message": "Added: $1",
+    "description": "Status: track added. $1 = track name"
+  },
+  "statusAlreadyInList": {
+    "message": "Already in list: $1",
+    "description": "Status: track already saved. $1 = track name"
+  },
+  "errorTrackGone": {
+    "message": "Selected track no longer exists.",
+    "description": "Track removed meanwhile"
+  },
+  "statusPreparing": {
+    "message": "Preparing $1…",
+    "description": "Status: preparing download. $1 = track name"
+  },
+  "statusDownloaded": {
+    "message": "Downloaded $1",
+    "description": "Status: file downloaded. $1 = file name"
+  },
+  "errorExportFailed": {
+    "message": "Export failed.",
+    "description": "Generic export failure"
+  },
+  "confirmClearHistory": {
+    "message": "Remove all $1 tracks from the history?",
+    "description": "Confirm dialog. $1 = number of tracks"
+  },
+  "statusHistoryCleared": {
+    "message": "History cleared.",
+    "description": "Status: history cleared"
+  },
+  "errorNothingToDownload": {
+    "message": "No tracks to download.",
+    "description": "Download all with empty list"
+  },
+  "statusDownloadingProgress": {
+    "message": "Downloading $1/$2: $3",
+    "description": "Download all progress. $1 = current, $2 = total, $3 = track name"
+  },
+  "statusDownloadedCount": {
+    "message": "Tracks downloaded: $1",
+    "description": "Download all finished. $1 = number of tracks"
+  },
+  "statusDownloadedPartial": {
+    "message": "Downloaded $1/$2, $3 failed.",
+    "description": "Download all with failures. $1 = ok, $2 = total, $3 = failed"
+  },
+  "tabSaved": {
+    "message": "Saved ($1)",
+    "description": "Saved tab. $1 = count"
+  },
+  "tabHistory": {
+    "message": "History ($1)",
+    "description": "History tab. $1 = count"
+  },
+  "selectTrackTitle": {
+    "message": "Select this track",
+    "description": "Tooltip of a track title"
+  },
+  "removeFromHistory": {
+    "message": "Remove from history",
+    "description": "Tooltip of the remove button in history"
+  },
+  "removeFromList": {
+    "message": "Remove from list",
+    "description": "Tooltip of the remove button in saved list"
+  },
+  "savedState": {
+    "message": "Saved",
+    "description": "History item already saved (button label)"
+  },
+  "alreadySavedTitle": {
+    "message": "Already in the saved list",
+    "description": "Tooltip when already saved"
+  },
+  "addToSavedTitle": {
+    "message": "Add to the saved list",
+    "description": "Tooltip of the Add button in history"
+  },
+  "download": {
+    "message": "Download",
+    "description": "Download button"
+  },
+  "downloading": {
+    "message": "Downloading…",
+    "description": "Main button while downloading"
+  },
+  "unknownId": {
+    "message": "Unknown ID",
+    "description": "Track without ID"
+  },
+  "idLabel": {
+    "message": "ID $1",
+    "description": "Track ID label. $1 = ID"
+  },
+  "trackLabelWithId": {
+    "message": "Tour $1",
+    "description": "Fallback track name. $1 = ID"
+  },
+  "trackLabel": {
+    "message": "track",
+    "description": "Fallback track name without ID"
+  },
+  "statusExtensionReloaded": {
+    "message": "Extension updated: reload this page to keep using it.",
+    "description": "Shown by an old copy of the widget after the extension was reloaded or updated"
+  }
+}

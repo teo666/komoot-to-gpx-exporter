@@ -2,7 +2,9 @@
   const EVENT_TYPE = "komoot-gpx:page-network";
   const API_VERSION = "v007";
   const SOURCE = "komoot-gpx-page-hook";
-  const DISCOVER_PATTERN = new RegExp(`/api/${API_VERSION}/discover_tours/([^/?#]+)(?:[/?#]|$)`, "i");
+  // Only single-tour endpoints (e.g. /discover_tours/e984826729), not lists,
+  // filters_histograms, route_attributes or sub-resources like /gallery/.
+  const DISCOVER_TOUR_PATH = new RegExp(`^/api/${API_VERSION}/discover_tours/e?\\d+/?$`, "i");
 
   if (window.__komootGpxPageHookInstalled) {
     return;
@@ -61,9 +63,9 @@
 
     try {
       const pathname = new URL(normalized).pathname;
-      return new RegExp(`^/api/${API_VERSION}/discover_tours/[^/?#]+/?$`, "i").test(pathname) || DISCOVER_PATTERN.test(normalized);
+      return DISCOVER_TOUR_PATH.test(pathname);
     } catch (_error) {
-      return DISCOVER_PATTERN.test(normalized);
+      return false;
     }
   };
 

@@ -1,0 +1,258 @@
+{
+  "extName": {
+    "message": "Komoot GPX Export",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Exportez les itinéraires Komoot en fichiers GPX.",
+    "description": "Extension description"
+  },
+  "headerHint": {
+    "message": "Faites glisser pour déplacer, cliquez pour agrandir ou réduire",
+    "description": "Tooltip of the draggable header"
+  },
+  "badgeTitle": {
+    "message": "Traces enregistrées",
+    "description": "Tooltip of the saved tracks counter"
+  },
+  "statusLooking": {
+    "message": "Recherche des données de trace Komoot sur cette page.",
+    "description": "Initial status"
+  },
+  "addTrace": {
+    "message": "Ajouter la trace",
+    "description": "Main button: add current track"
+  },
+  "addTraceTitle": {
+    "message": "Ajouter la trace affichée à la liste enregistrée",
+    "description": "Tooltip of the main button"
+  },
+  "byIdButton": {
+    "message": "+ ID",
+    "description": "Button opening the add-by-ID dialog"
+  },
+  "byIdTitle": {
+    "message": "Ajouter une trace par son ID Komoot",
+    "description": "Tooltip of the + ID button"
+  },
+  "savedEmpty": {
+    "message": "Aucune trace pour l’instant. Utilisez « $1 » pour enregistrer la trace actuelle.",
+    "description": "Empty saved list. $1 = name of the Add Trace button"
+  },
+  "downloadAll": {
+    "message": "Tout télécharger",
+    "description": "Button: download every saved track"
+  },
+  "historyEmpty": {
+    "message": "Aucune trace vue pour l’instant. Ouvrez un itinéraire sur Komoot et il apparaîtra ici.",
+    "description": "Empty history"
+  },
+  "clearHistory": {
+    "message": "Effacer l’historique",
+    "description": "Button: clear the history"
+  },
+  "expandPanel": {
+    "message": "Agrandir le panneau",
+    "description": "Accessible label of the expand button"
+  },
+  "collapsePanel": {
+    "message": "Réduire le panneau",
+    "description": "Accessible label of the collapse button"
+  },
+  "modalTitle": {
+    "message": "Ajouter une trace par ID",
+    "description": "Title of the add-by-ID dialog"
+  },
+  "modalHint": {
+    "message": "ID de l’itinéraire (ex. 984826729 ou e984826729) ou un lien vers un itinéraire Komoot.",
+    "description": "Hint in the add-by-ID dialog"
+  },
+  "cancel": {
+    "message": "Annuler",
+    "description": "Cancel button"
+  },
+  "add": {
+    "message": "Ajouter",
+    "description": "Add button"
+  },
+  "checking": {
+    "message": "Vérification…",
+    "description": "Add button while the ID is verified"
+  },
+  "errorInvalidId": {
+    "message": "Saisissez un ID d’itinéraire Komoot valide (chiffres, éventuellement précédés de « e ») ou un lien.",
+    "description": "Invalid ID typed in the dialog"
+  },
+  "errorUnsupportedId": {
+    "message": "Format d’ID d’itinéraire non pris en charge.",
+    "description": "Unsupported ID format"
+  },
+  "errorAddFailed": {
+    "message": "Impossible d’ajouter la trace.",
+    "description": "Generic add failure"
+  },
+  "errorLoadFailed": {
+    "message": "Impossible de charger la trace.",
+    "description": "Generic load failure"
+  },
+  "errorNetwork": {
+    "message": "Erreur réseau lors du contact avec Komoot. Réessayez.",
+    "description": "Network error"
+  },
+  "errorNotFound": {
+    "message": "Aucun itinéraire trouvé avec l’ID $1.",
+    "description": "Tour not found. $1 = tour ID"
+  },
+  "errorPrivate": {
+    "message": "L’itinéraire $1 est privé ou inaccessible.",
+    "description": "Tour private. $1 = tour ID"
+  },
+  "errorKomootStatus": {
+    "message": "Komoot a répondu par une erreur ($1).",
+    "description": "Komoot HTTP error. $1 = status code"
+  },
+  "errorInvalidResponse": {
+    "message": "Komoot a renvoyé une réponse invalide pour cet itinéraire.",
+    "description": "Invalid response from Komoot"
+  },
+  "errorNoPoints": {
+    "message": "L’itinéraire $1 n’a aucun point utilisable.",
+    "description": "Tour without points. $1 = tour ID"
+  },
+  "errorNotEnoughPoints": {
+    "message": "La trace ne contient pas assez de points valides pour créer un fichier GPX.",
+    "description": "Not enough points for a GPX"
+  },
+  "errorRequestFailed": {
+    "message": "La requête vers Komoot a échoué ($1).",
+    "description": "HTTP request failed. $1 = status code"
+  },
+  "statusTourFound": {
+    "message": "Données de l’itinéraire trouvées. Prêt à ajouter.",
+    "description": "Status: tour found in page"
+  },
+  "statusTrackDetected": {
+    "message": "Trace détectée. Prête à ajouter.",
+    "description": "Status: track detected"
+  },
+  "statusNoApiUrl": {
+    "message": "Aucune trace Komoot trouvée. Ouvrez un itinéraire et réessayez.",
+    "description": "Status: nothing found yet"
+  },
+  "errorNoCoordinatesUrl": {
+    "message": "Aucune trace Komoot trouvée sur cette page.",
+    "description": "No track on page when pressing Add Trace"
+  },
+  "statusSelected": {
+    "message": "Trace sélectionnée : $1",
+    "description": "Status: track selected. $1 = track name"
+  },
+  "statusAdded": {
+    "message": "Ajoutée : $1",
+    "description": "Status: track added. $1 = track name"
+  },
+  "statusAlreadyInList": {
+    "message": "Déjà dans la liste : $1",
+    "description": "Status: track already saved. $1 = track name"
+  },
+  "errorTrackGone": {
+    "message": "La trace sélectionnée n’existe plus.",
+    "description": "Track removed meanwhile"
+  },
+  "statusPreparing": {
+    "message": "Préparation de $1…",
+    "description": "Status: preparing download. $1 = track name"
+  },
+  "statusDownloaded": {
+    "message": "$1 téléchargé",
+    "description": "Status: file downloaded. $1 = file name"
+  },
+  "errorExportFailed": {
+    "message": "L’export a échoué.",
+    "description": "Generic export failure"
+  },
+  "confirmClearHistory": {
+    "message": "Supprimer les $1 traces de l’historique ?",
+    "description": "Confirm dialog. $1 = number of tracks"
+  },
+  "statusHistoryCleared": {
+    "message": "Historique effacé.",
+    "description": "Status: history cleared"
+  },
+  "errorNothingToDownload": {
+    "message": "Aucune trace à télécharger.",
+    "description": "Download all with empty list"
+  },
+  "statusDownloadingProgress": {
+    "message": "Téléchargement $1/$2 : $3",
+    "description": "Download all progress. $1 = current, $2 = total, $3 = track name"
+  },
+  "statusDownloadedCount": {
+    "message": "Traces téléchargées : $1",
+    "description": "Download all finished. $1 = number of tracks"
+  },
+  "statusDownloadedPartial": {
+    "message": "$1/$2 téléchargées, $3 en échec.",
+    "description": "Download all with failures. $1 = ok, $2 = total, $3 = failed"
+  },
+  "tabSaved": {
+    "message": "Enregistrées ($1)",
+    "description": "Saved tab. $1 = count"
+  },
+  "tabHistory": {
+    "message": "Historique ($1)",
+    "description": "History tab. $1 = count"
+  },
+  "selectTrackTitle": {
+    "message": "Sélectionner cette trace",
+    "description": "Tooltip of a track title"
+  },
+  "removeFromHistory": {
+    "message": "Retirer de l’historique",
+    "description": "Tooltip of the remove button in history"
+  },
+  "removeFromList": {
+    "message": "Retirer de la liste",
+    "description": "Tooltip of the remove button in saved list"
+  },
+  "savedState": {
+    "message": "Enregistrée",
+    "description": "History item already saved (button label)"
+  },
+  "alreadySavedTitle": {
+    "message": "Déjà dans la liste enregistrée",
+    "description": "Tooltip when already saved"
+  },
+  "addToSavedTitle": {
+    "message": "Ajouter à la liste enregistrée",
+    "description": "Tooltip of the Add button in history"
+  },
+  "download": {
+    "message": "Télécharger",
+    "description": "Download button"
+  },
+  "downloading": {
+    "message": "Téléchargement…",
+    "description": "Main button while downloading"
+  },
+  "unknownId": {
+    "message": "ID inconnu",
+    "description": "Track without ID"
+  },
+  "idLabel": {
+    "message": "ID $1",
+    "description": "Track ID label. $1 = ID"
+  },
+  "trackLabelWithId": {
+    "message": "Itinéraire $1",
+    "description": "Fallback track name. $1 = ID"
+  },
+  "trackLabel": {
+    "message": "trace",
+    "description": "Fallback track name without ID"
+  },
+  "statusExtensionReloaded": {
+    "message": "Extension mise à jour : rechargez la page pour continuer à l’utiliser.",
+    "description": "Shown by an old copy of the widget after the extension was reloaded or updated"
+  }
+}
