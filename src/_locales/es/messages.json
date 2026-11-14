@@ -4,7 +4,7 @@
     "description": "Extension name"
   },
   "extDescription": {
-    "message": "Exporta las rutas de Komoot como archivos GPX.",
+    "message": "Exporta rutas de Komoot a GPX con un clic, con historial, lista guardada persistente y añadir por enlace. Todo en tu navegador.",
     "description": "Extension description"
   },
   "headerHint": {

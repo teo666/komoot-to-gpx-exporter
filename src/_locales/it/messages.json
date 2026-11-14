@@ -4,7 +4,7 @@
     "description": "Extension name"
   },
   "extDescription": {
-    "message": "Esporta i tour di Komoot come file GPX.",
+    "message": "Esporta i tour di Komoot in GPX con un clic, con cronologia, lista salvata persistente e aggiunta via link. Tutto nel browser.",
     "description": "Extension description"
   },
   "headerHint": {

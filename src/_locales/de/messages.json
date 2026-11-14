@@ -4,7 +4,7 @@
     "description": "Extension name"
   },
   "extDescription": {
-    "message": "Komoot-Touren als GPX-Dateien exportieren.",
+    "message": "Komoot-Touren mit einem Klick als GPX exportieren: mit Verlauf, dauerhafter Merkliste und Hinzufügen per Link. Alles lokal.",
     "description": "Extension description"
   },
   "headerHint": {

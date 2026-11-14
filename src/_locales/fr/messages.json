@@ -4,7 +4,7 @@
     "description": "Extension name"
   },
   "extDescription": {
-    "message": "Exportez les itinéraires Komoot en fichiers GPX.",
+    "message": "Exportez les itinéraires Komoot en GPX en un clic : historique, liste enregistrée persistante et ajout par lien. Tout en local.",
     "description": "Extension description"
   },
   "headerHint": {
