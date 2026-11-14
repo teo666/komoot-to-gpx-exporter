@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Store frame</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=block" rel="stylesheet">
+<style>
+  :root {
+    --bg-1: #1f3a2e;
+    --bg-2: #0c1712;
+    --fg: #f6f1e7;
+    --muted: rgba(246, 241, 231, 0.72);
+    --accent-1: #f2d67a;
+    --accent-2: #c9f36b;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 1280px; height: 800px; overflow: hidden; }
+  body {
+    position: relative;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: var(--fg);
+    background:
+      radial-gradient(1100px 700px at 10% 0%, rgba(201, 243, 107, 0.16), transparent 60%),
+      radial-gradient(900px 600px at 100% 100%, rgba(242, 214, 122, 0.10), transparent 60%),
+      linear-gradient(160deg, var(--bg-1), var(--bg-2));
+  }
+  .topo { position: absolute; inset: 0; opacity: 0.10; pointer-events: none; }
+  .brand { position: absolute; left: 56px; top: 42px; display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 19px; letter-spacing: 0.2px; }
+  .brand img { width: 38px; height: 38px; border-radius: 9px; }
+  .brand span { color: var(--muted); font-weight: 600; }
+  h1 { position: absolute; left: 56px; top: 92px; margin: 0; font-size: 50px; line-height: 1.08; font-weight: 800; letter-spacing: -1.2px; max-width: 1120px; }
+  h1 em { font-style: normal; background: linear-gradient(120deg, var(--accent-1), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .sub { position: absolute; left: 56px; top: 160px; margin: 0; font-size: 20px; line-height: 1.45; color: var(--muted); max-width: 980px; font-weight: 500; }
+
+  .browser { position: absolute; border-radius: 14px; overflow: hidden; background: #fff; box-shadow: 0 40px 90px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.08); }
+  .browser .bar { height: 34px; background: #ebe8e1; display: flex; align-items: center; gap: 8px; padding: 0 14px; }
+  .browser .dot { width: 11px; height: 11px; border-radius: 50%; }
+  .browser .url { margin-left: 18px; flex: 1; max-width: 520px; height: 22px; border-radius: 11px; background: #fff; color: #555; font-size: 12px; display: flex; align-items: center; padding: 0 12px; font-weight: 500; }
+  .browser .shot { display: block; background-repeat: no-repeat; }
+
+  .callout { position: absolute; border-radius: 18px; background-repeat: no-repeat; box-shadow: 0 30px 70px rgba(0, 0, 0, 0.55), 0 0 0 2px rgba(201, 243, 107, 0.55), 0 0 0 7px rgba(201, 243, 107, 0.12); }
+
+  .phone { position: absolute; border-radius: 42px; background: #0b0f0d; padding: 12px; box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.12), inset 0 0 0 2px #26302b; }
+  .phone .screen { border-radius: 31px; overflow: hidden; background-repeat: no-repeat; position: relative; }
+
+  .features { position: absolute; left: 56px; right: 56px; top: 250px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .card { border-radius: 20px; padding: 26px 26px 24px; background: rgba(246, 241, 231, 0.06); border: 1px solid rgba(246, 241, 231, 0.12); min-height: 220px; }
+  .card .ico { width: 46px; height: 46px; border-radius: 13px; display: grid; place-items: center; background: linear-gradient(135deg, var(--accent-1), var(--accent-2)); color: #162119; margin-bottom: 18px; }
+  .card h3 { margin: 0 0 8px; font-size: 21px; font-weight: 700; letter-spacing: -0.2px; }
+  .card p { margin: 0; color: var(--muted); font-size: 16px; line-height: 1.45; font-weight: 500; }
+</style>
+</head>
+<body>
+<svg class="topo" viewBox="0 0 1280 800" preserveAspectRatio="none" aria-hidden="true">
+  <g fill="none" stroke="#f6f1e7" stroke-width="1.2">
+    <path d="M-50 640 C 200 560, 380 700, 640 610 S 1050 520, 1330 600"/>
+    <path d="M-50 680 C 220 600, 400 740, 660 650 S 1060 560, 1330 640"/>
+    <path d="M-50 720 C 240 640, 420 780, 680 690 S 1070 600, 1330 680"/>
+    <path d="M-50 760 C 260 680, 440 820, 700 730 S 1080 640, 1330 720"/>
+    <path d="M900 -20 C 980 80, 1180 60, 1300 160"/>
+    <path d="M860 -20 C 950 110, 1170 100, 1300 210"/>
+    <path d="M820 -20 C 920 140, 1160 140, 1300 260"/>
+    <path d="M780 -20 C 890 170, 1150 180, 1300 310"/>
+    <ellipse cx="1120" cy="420" rx="120" ry="70"/>
+    <ellipse cx="1120" cy="420" rx="170" ry="105"/>
+    <ellipse cx="1120" cy="420" rx="225" ry="140"/>
+  </g>
+</svg>
+<div class="brand"><img src="../../icons/icon-128.png" alt=""><div>Komoot GPX Export <span>· for Chrome &amp; Firefox</span></div></div>
+<h1 id="title"></h1>
+<p class="sub" id="sub"></p>
+<div id="stage"></div>
+
+<script>window.RAW_DIR = new URLSearchParams(location.search).get("raw") || undefined;</script>
+<script src="slides.js"></script>
+<script>
+  // Raw desktop screenshots: Chrome viewport captured 1:1 in CSS pixels.
+  const [RAW_W, RAW_H] = window.RAW_SIZE || [1470, 775];
+  const SLIDES = window.SLIDES || {};
+  const name = new URLSearchParams(location.search).get("slide") || "hero";
+  const s = SLIDES[name];
+  document.getElementById("title").innerHTML = s.title;
+  document.getElementById("sub").textContent = s.sub;
+  const stage = document.getElementById("stage");
+
+  function browser({ img, left, top, width, url }) {
+    const scale = width / RAW_W;
+    const h = Math.round(RAW_H * scale);
+    const el = document.createElement("div");
+    el.className = "browser";
+    Object.assign(el.style, { left: left + "px", top: top + "px", width: width + "px" });
+    el.innerHTML = `<div class="bar"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="url">${url}</span></div><div class="shot" style="width:${width}px;height:${h}px;background-image:url(${img});background-size:${width}px ${h}px"></div>`;
+    stage.append(el);
+  }
+
+  function callout({ img, crop: [x, y, w, h], left, top, scale, radius }) {
+    const el = document.createElement("div");
+    el.className = "callout";
+    Object.assign(el.style, {
+      left: left + "px", top: top + "px",
+      width: Math.round(w * scale) + "px", height: Math.round(h * scale) + "px",
+      backgroundImage: `url(${img})`,
+      backgroundSize: `${Math.round(RAW_W * scale)}px auto`,
+      backgroundPosition: `${-Math.round(x * scale)}px ${-Math.round(y * scale)}px`,
+      borderRadius: (radius ?? 18) + "px"
+    });
+    stage.append(el);
+  }
+
+  // Mobile raws are 500x775 (narrowest Chrome window); the phone shows the
+  // left 432px column (logo and widget stay whole), close to a phone's proportions.
+  const MOBILE = { w: 500, h: 775, cropX: 0, cropW: 432 };
+  function phone({ img, left, top, width, rotate, z }) {
+    const screenW = (width || 320) - 24;
+    const scale = screenW / MOBILE.cropW;
+    const screenH = Math.round(MOBILE.h * scale);
+    const el = document.createElement("div");
+    el.className = "phone";
+    Object.assign(el.style, { left: left + "px", top: top + "px", transform: `rotate(${rotate || 0}deg)`, zIndex: z || 1 });
+    el.innerHTML = `<div class="screen" style="width:${screenW}px;height:${screenH}px;background-image:url(${img});background-size:${Math.round(MOBILE.w * scale)}px ${screenH}px;background-position:${-Math.round(MOBILE.cropX * scale)}px 0"></div>`;
+    stage.append(el);
+  }
+
+  function features({ items }) {
+    const el = document.createElement("div");
+    el.className = "features";
+    el.innerHTML = items.map((f) => `<div class="card"><div class="ico">${f.icon}</div><h3>${f.title}</h3><p>${f.text}</p></div>`).join("");
+    stage.append(el);
+  }
+
+  for (const part of s.parts) {
+    ({ browser, callout, phone, features })[part.type](part);
+  }
+</script>
+</body>
+</html>
