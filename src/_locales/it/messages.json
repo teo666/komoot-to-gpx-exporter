@@ -1,0 +1,258 @@
+{
+  "extName": {
+    "message": "Komoot GPX Export",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Esporta i tour di Komoot in GPX con un clic, con cronologia, lista salvata persistente e aggiunta via link. Tutto nel browser.",
+    "description": "Extension description"
+  },
+  "headerHint": {
+    "message": "Trascina per spostare, clicca per espandere o comprimere",
+    "description": "Tooltip of the draggable header"
+  },
+  "badgeTitle": {
+    "message": "Tracce salvate",
+    "description": "Tooltip of the saved tracks counter"
+  },
+  "statusLooking": {
+    "message": "Cerco i dati della traccia Komoot in questa pagina.",
+    "description": "Initial status"
+  },
+  "addTrace": {
+    "message": "Aggiungi traccia",
+    "description": "Main button: add current track"
+  },
+  "addTraceTitle": {
+    "message": "Aggiungi la traccia mostrata alla lista salvata",
+    "description": "Tooltip of the main button"
+  },
+  "byIdButton": {
+    "message": "+ ID",
+    "description": "Button opening the add-by-ID dialog"
+  },
+  "byIdTitle": {
+    "message": "Aggiungi una traccia tramite il suo ID Komoot",
+    "description": "Tooltip of the + ID button"
+  },
+  "savedEmpty": {
+    "message": "Nessuna traccia aggiunta. Usa “$1” per salvare la traccia corrente.",
+    "description": "Empty saved list. $1 = name of the Add Trace button"
+  },
+  "downloadAll": {
+    "message": "Scarica tutte",
+    "description": "Button: download every saved track"
+  },
+  "historyEmpty": {
+    "message": "Nessuna traccia vista finora. Apri un tour su Komoot e comparirà qui.",
+    "description": "Empty history"
+  },
+  "clearHistory": {
+    "message": "Svuota cronologia",
+    "description": "Button: clear the history"
+  },
+  "expandPanel": {
+    "message": "Espandi pannello",
+    "description": "Accessible label of the expand button"
+  },
+  "collapsePanel": {
+    "message": "Comprimi pannello",
+    "description": "Accessible label of the collapse button"
+  },
+  "modalTitle": {
+    "message": "Aggiungi traccia tramite ID",
+    "description": "Title of the add-by-ID dialog"
+  },
+  "modalHint": {
+    "message": "ID del tour (es. 984826729 o e984826729) oppure un link a un tour Komoot.",
+    "description": "Hint in the add-by-ID dialog"
+  },
+  "cancel": {
+    "message": "Annulla",
+    "description": "Cancel button"
+  },
+  "add": {
+    "message": "Aggiungi",
+    "description": "Add button"
+  },
+  "checking": {
+    "message": "Verifico…",
+    "description": "Add button while the ID is verified"
+  },
+  "errorInvalidId": {
+    "message": "Inserisci un ID tour Komoot valido (cifre, eventualmente precedute da “e”) o un link al tour.",
+    "description": "Invalid ID typed in the dialog"
+  },
+  "errorUnsupportedId": {
+    "message": "Formato dell’ID tour non supportato.",
+    "description": "Unsupported ID format"
+  },
+  "errorAddFailed": {
+    "message": "Impossibile aggiungere la traccia.",
+    "description": "Generic add failure"
+  },
+  "errorLoadFailed": {
+    "message": "Impossibile caricare la traccia.",
+    "description": "Generic load failure"
+  },
+  "errorNetwork": {
+    "message": "Errore di rete nel contattare Komoot. Riprova.",
+    "description": "Network error"
+  },
+  "errorNotFound": {
+    "message": "Nessun tour trovato con ID $1.",
+    "description": "Tour not found. $1 = tour ID"
+  },
+  "errorPrivate": {
+    "message": "Il tour $1 è privato o non accessibile.",
+    "description": "Tour private. $1 = tour ID"
+  },
+  "errorKomootStatus": {
+    "message": "Komoot ha risposto con un errore ($1).",
+    "description": "Komoot HTTP error. $1 = status code"
+  },
+  "errorInvalidResponse": {
+    "message": "Komoot ha restituito una risposta non valida per questo tour.",
+    "description": "Invalid response from Komoot"
+  },
+  "errorNoPoints": {
+    "message": "Il tour $1 non ha punti utilizzabili.",
+    "description": "Tour without points. $1 = tour ID"
+  },
+  "errorNotEnoughPoints": {
+    "message": "La traccia non contiene abbastanza punti validi per creare un file GPX.",
+    "description": "Not enough points for a GPX"
+  },
+  "errorRequestFailed": {
+    "message": "Richiesta a Komoot non riuscita ($1).",
+    "description": "HTTP request failed. $1 = status code"
+  },
+  "statusTourFound": {
+    "message": "Dati del tour trovati. Pronto per l’aggiunta.",
+    "description": "Status: tour found in page"
+  },
+  "statusTrackDetected": {
+    "message": "Traccia rilevata. Pronta per l’aggiunta.",
+    "description": "Status: track detected"
+  },
+  "statusNoApiUrl": {
+    "message": "Nessuna traccia Komoot trovata. Apri un tour e riprova.",
+    "description": "Status: nothing found yet"
+  },
+  "errorNoCoordinatesUrl": {
+    "message": "Nessuna traccia Komoot trovata in questa pagina.",
+    "description": "No track on page when pressing Add Trace"
+  },
+  "statusSelected": {
+    "message": "Traccia selezionata: $1",
+    "description": "Status: track selected. $1 = track name"
+  },
+  "statusAdded": {
+    "message": "Aggiunta: $1",
+    "description": "Status: track added. $1 = track name"
+  },
+  "statusAlreadyInList": {
+    "message": "Già nella lista: $1",
+    "description": "Status: track already saved. $1 = track name"
+  },
+  "errorTrackGone": {
+    "message": "La traccia selezionata non esiste più.",
+    "description": "Track removed meanwhile"
+  },
+  "statusPreparing": {
+    "message": "Preparo $1…",
+    "description": "Status: preparing download. $1 = track name"
+  },
+  "statusDownloaded": {
+    "message": "Scaricato $1",
+    "description": "Status: file downloaded. $1 = file name"
+  },
+  "errorExportFailed": {
+    "message": "Esportazione non riuscita.",
+    "description": "Generic export failure"
+  },
+  "confirmClearHistory": {
+    "message": "Rimuovere tutte le $1 tracce dalla cronologia?",
+    "description": "Confirm dialog. $1 = number of tracks"
+  },
+  "statusHistoryCleared": {
+    "message": "Cronologia svuotata.",
+    "description": "Status: history cleared"
+  },
+  "errorNothingToDownload": {
+    "message": "Nessuna traccia da scaricare.",
+    "description": "Download all with empty list"
+  },
+  "statusDownloadingProgress": {
+    "message": "Download $1/$2: $3",
+    "description": "Download all progress. $1 = current, $2 = total, $3 = track name"
+  },
+  "statusDownloadedCount": {
+    "message": "Tracce scaricate: $1",
+    "description": "Download all finished. $1 = number of tracks"
+  },
+  "statusDownloadedPartial": {
+    "message": "Scaricate $1/$2, $3 non riuscite.",
+    "description": "Download all with failures. $1 = ok, $2 = total, $3 = failed"
+  },
+  "tabSaved": {
+    "message": "Salvate ($1)",
+    "description": "Saved tab. $1 = count"
+  },
+  "tabHistory": {
+    "message": "Cronologia ($1)",
+    "description": "History tab. $1 = count"
+  },
+  "selectTrackTitle": {
+    "message": "Seleziona questa traccia",
+    "description": "Tooltip of a track title"
+  },
+  "removeFromHistory": {
+    "message": "Rimuovi dalla cronologia",
+    "description": "Tooltip of the remove button in history"
+  },
+  "removeFromList": {
+    "message": "Rimuovi dalla lista",
+    "description": "Tooltip of the remove button in saved list"
+  },
+  "savedState": {
+    "message": "Salvata",
+    "description": "History item already saved (button label)"
+  },
+  "alreadySavedTitle": {
+    "message": "Già nella lista salvata",
+    "description": "Tooltip when already saved"
+  },
+  "addToSavedTitle": {
+    "message": "Aggiungi alla lista salvata",
+    "description": "Tooltip of the Add button in history"
+  },
+  "download": {
+    "message": "Scarica",
+    "description": "Download button"
+  },
+  "downloading": {
+    "message": "Download in corso…",
+    "description": "Main button while downloading"
+  },
+  "unknownId": {
+    "message": "ID sconosciuto",
+    "description": "Track without ID"
+  },
+  "idLabel": {
+    "message": "ID $1",
+    "description": "Track ID label. $1 = ID"
+  },
+  "trackLabelWithId": {
+    "message": "Tour $1",
+    "description": "Fallback track name. $1 = ID"
+  },
+  "trackLabel": {
+    "message": "traccia",
+    "description": "Fallback track name without ID"
+  },
+  "statusExtensionReloaded": {
+    "message": "Estensione aggiornata: ricarica la pagina per continuare a usarla.",
+    "description": "Shown by an old copy of the widget after the extension was reloaded or updated"
+  }
+}

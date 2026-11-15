@@ -5,7 +5,11 @@ This repository contains a minimal scaffold for a Chrome and Firefox extension t
 ## What is included
 
 - content script that scans the loaded page for a Komoot coordinates API URL
-- fixed bottom export button with mobile-safe styling
+- single floating widget, fixed bottom-left by default, collapsible and draggable (mouse and touch); its position, collapsed state and tab are remembered
+- saved tracks persist across page reloads and are synced between open Komoot tabs
+- persistent history of every track seen on Komoot (History tab), so tracks stay reachable even when Komoot serves them from its cache without a new request
+- "+ ID" button to add a track by typing its Komoot tour ID or pasting a tour link
+- UI in English, Italian, Spanish, German and French (follows the browser language; strings live in `src/_locales/<lang>/messages.json`)
 - GPX generation and filename sanitization in the content script
 - background download bridge using the browser downloads API
 - build script that emits separate `dist/chrome` and `dist/firefox` extension folders

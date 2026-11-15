@@ -43,7 +43,7 @@ sequenceDiagram
     PH->>PH: Intercept Response
     PH-->>CS: window.postMessage(tourData)
     CS->>CS: Register Track in State
-    CS->>CS: Update UI (Status Bar/Panel)
+    CS->>CS: Update UI (widget status/lists)
 
     Note over K,CS: Download phase
     User->>CS: Click "Download"
@@ -68,11 +68,19 @@ sequenceDiagram
 
 ### `content.js` (The Orchestrator)
 
-- **UI Logic**: Manages the export button, status indicators, and the "Saved Tracks" side panel.
+- **UI Logic**: Renders one floating widget (bottom-left by default). The header shows the title, the saved-tracks badge and the status line, and is the drag handle: a click/tap toggles collapse, a movement over `DRAG_THRESHOLD_PX` drags it (Pointer Events, so mouse, pen and touch behave the same; `touch-action: none` on the header avoids page scrolling while dragging). The body holds "Add Trace", "+ ID" and the Saved/History tabs. The widget is anchored by `left`/`bottom` so expanding grows upwards, and it is clamped to the viewport on drag, resize, collapse and any size change (`ResizeObserver`). Collapsed state, position and active tab are stored in `storage.local` (key `komootGpxUi`); the widget stays hidden until the stylesheet and these preferences are loaded, to avoid a visible jump.
 - **GPX Logic**:
   - `normalizeTrackPoints`: Converts Komoot's internal coordinate format (including altitude and timestamps) into standard GPS data.
   - `buildGpx`: Generates a valid GPX 1.1 XML document with metadata links back to the source tour.
 - **Discovery Logic**: Scans `document.scripts` on initial load to find any pre-loaded tour data that might have preceded the network hook injection.
+- **Focused Tour Watcher**: Polls the page URL for the `focusedTour` query parameter. Komoot updates it every time a tour is opened, even when the tour data comes from the app cache and no `discover_tours` request is made. Discover ids come in two flavours: `e984826729` is an editorial tour (coordinates at `/v007/tours/984826729/coordinates`) and `37406527` is a smart tour (coordinates at `/v007/smart_tours/37406527/coordinates`); `/v007/tours/<smart id>` answers 403. The name of both is available at `/v007/discover_tours/<id>`.
+- **Open tour detection**: `readPageTour()` derives the open tour from the URL: the `focusedTour` parameter (desktop discover layout), `/smarttour/<id>/…` (tours opened from lists on narrow screens) or `/tour/<id>` (regular tours, coordinates at `/v007/tours/<id>/coordinates`). On `/discover/` list pages without any of these there is no open tour, and inline page data is not used either, because it describes many tours at once. When inline data is used (other pages), only track resources (`tours`, `smart_tours`) are accepted: highlights also expose `/coordinates`, but as a single point.
+- **Stale copies after an extension reload**: Chrome keeps already-injected content scripts running in open tabs, but they lose access to storage and APIs. The URL polling loop checks `runtime.id`; when it disappears the widget shows a "reload this page" notice (pre-translated at startup) and disables its controls instead of failing silently.
+- **Prefetch handling**: On some discover pages Komoot prefetches `discover_tours/<id>` for every tour in the list. A network payload only becomes the active track (and enters the history) when its id matches the open tour from `readPageTour()`; the others are kept in an in-memory cache (`state.discoveredTours`) so that focusing one later reuses Komoot's exact coordinates link and name.
+- **History**: Every detected track (network hook, inline scripts or `focusedTour`) is recorded in the "History" tab of the widget, most recent first, capped at `MAX_HISTORY` (100). It is persisted in `storage.local` (key `komootGpxHistory`), survives reloads and is kept in sync across open Komoot tabs. From the history a track can be selected, added to the saved list, downloaded or removed. Missing names are resolved lazily from the tour metadata endpoint.
+- **Persistence**: The saved list (`state.tracks`, key `komootGpxTracks`, max `MAX_TRACKS`) and the history (`state.history`, key `komootGpxHistory`, max `MAX_HISTORY`) share one mechanism (`PERSISTED_LISTS`, `loadPersistedLists`, `savePersistedList`). Writes are deferred until the stored list has been read, then the in-memory entries are merged with the stored ones and saved, so nothing detected during startup overwrites older data. `storage.onChanged` keeps lists in sync across tabs; echoes of this tab's own writes are ignored (they arrive asynchronously and could roll the list back).
+- **Localization**: All UI strings go through `t(key, ...substitutions)`, a thin wrapper around `i18n.getMessage`. Translations live in `src/_locales/{en,it,es,de,fr}/messages.json` (`$1`…`$9` are substitutions); `default_locale` is `en`, and the manifests use `__MSG_extName__` / `__MSG_extDescription__`. The language follows the browser UI language; dates use `i18n.getUILanguage()`. To add a language, copy `en/messages.json` to a new folder and translate the `message` fields.
+- **Add by ID**: The "+ ID" button opens a modal that accepts a tour id (`984826729`, `e984826729`) or a Komoot link (`/tour/984826729`, `?focusedTour=e984826729`). A bare numeric id is ambiguous, so it is tried first as a regular tour (`/tours/<id>`) and then as a smart tour (`/smart_tours/<id>`); links and `e` ids are unambiguous. The tour is verified by fetching its coordinates (404 → "not found", 401/403 → "private") and requiring at least two valid points; on success it is added to the saved list and the history, otherwise the error is shown inside the modal.
 
 ### `background.js` (The Dispatcher)
 
@@ -100,8 +108,10 @@ The extension centralizes the Komoot API version in a constant `API_VERSION`. Th
 
 ### Robustness Features
 
+- **Logging**: `logDebug` (console.debug) is used for expected situations such as payloads without a coordinates link or a failed name lookup; `logWarn` is reserved for real failures (script injection, storage, downloads), because Chrome lists every content-script `console.warn` on the extension's Errors page.
+
 - **Duplicate Prevention**: Tracks are deduplicated using their unique coordinates URL.
-- **Capacity**: The list is capped at `MAX_TRACKS` (40) to prevent excessive memory usage in long sessions.
+- **Capacity**: The saved list is capped at `MAX_TRACKS` (40) and the history at `MAX_HISTORY` (100) to keep `storage.local` small.
 - **Blob Management**: Blob URLs are automatically revoked after 10 seconds to clean up memory.
 
 ---
