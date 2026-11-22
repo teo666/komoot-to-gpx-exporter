@@ -29,6 +29,8 @@
   const STYLES_TIMEOUT_MS = 2000;
   const MAX_HISTORY = 100;
   const FOCUSED_TOUR_PARAM = "focusedTour";
+  // Private tours shared by link carry this token; the API needs it too.
+  const SHARE_TOKEN_PARAM = "share_token";
   const URL_POLL_INTERVAL_MS = 500;
   const API_VERSION = "v007";
   const DISCOVERY_PATTERN = new RegExp(`https://api\\.komoot\\.de/${API_VERSION}/([^"'\\\\\\s<]+)/(\\d+)/coordinates(?:\\?[^"'\\\\\\s<>]*)?`, "i");
@@ -105,7 +107,7 @@
       }
 
       const pageTour = readPageTour();
-      const key = pageTour ? `${pageTour.kind}:${pageTour.rawId}` : null;
+      const key = pageTour ? `${pageTour.kind}:${pageTour.rawId}:${pageTour.shareToken || ""}` : null;
       if (key === lastKey) {
         return;
       }
@@ -160,7 +162,8 @@
    * - `/smarttour/<id>/…` pages (opened from lists on narrow screens);
    * - `/tour/<id>` pages (regular tours).
    * List pages without any of these have no open tour.
-   * @returns {{rawId: string, kind: "discover"|"tour"}|null} The open tour, or null.
+   * A `share_token` parameter (private tours shared by link) is kept along.
+   * @returns {{rawId: string, kind: "discover"|"tour", shareToken: string|null}|null} The open tour, or null.
    */
   function readPageTour() {
     let url;
@@ -170,23 +173,56 @@
       return null;
     }
 
+    const shareToken = readShareToken(url);
+
     const focused = url.searchParams.get(FOCUSED_TOUR_PARAM);
     if (focused && /^e?\d+$/i.test(focused)) {
-      return { rawId: focused.toLowerCase(), kind: "discover" };
+      return { rawId: focused.toLowerCase(), kind: "discover", shareToken };
     }
 
     const smartTour = url.pathname.match(/\/smarttour\/(e?\d+)(?:[/?#]|$)/i);
     if (smartTour) {
-      return { rawId: smartTour[1].toLowerCase(), kind: "discover" };
+      return { rawId: smartTour[1].toLowerCase(), kind: "discover", shareToken };
     }
 
     const tour = url.pathname.match(/\/tour\/(e?\d+)(?:[/?#]|$)/i);
     if (tour) {
       const rawId = tour[1].toLowerCase();
-      return { rawId, kind: rawId.startsWith("e") ? "discover" : "tour" };
+      return { rawId, kind: rawId.startsWith("e") ? "discover" : "tour", shareToken };
     }
 
     return null;
+  }
+
+  /**
+   * Reads the share token of a private tour shared by link.
+   * @param {URL} url - A Komoot page URL.
+   * @returns {string|null} The token, or null when absent or malformed.
+   */
+  function readShareToken(url) {
+    const token = url.searchParams.get(SHARE_TOKEN_PARAM);
+    return token && /^[A-Za-z0-9_-]+$/.test(token) ? token : null;
+  }
+
+  /**
+   * Adds the share token to a Komoot API URL, so that private tours shared
+   * by link can be read without being logged in.
+   * @param {string|null} url - The API URL.
+   * @param {string|null} shareToken - The token, if any.
+   * @returns {string|null} The URL with the token, or the URL unchanged.
+   */
+  function withShareToken(url, shareToken) {
+    if (!url || !shareToken) {
+      return url;
+    }
+
+    try {
+      const parsed = new URL(url);
+      parsed.searchParams.set(SHARE_TOKEN_PARAM, shareToken);
+      return parsed.href;
+    } catch (_error) {
+      return url;
+    }
   }
 
   /**
@@ -207,8 +243,8 @@
     const focusedTour = pageTour.rawId;
     // Prefer what Komoot itself returned for this tour (exact coordinates link
     // and name), fall back to deriving the URLs from the id.
-    const cached = pageTour.kind === "discover" ? state.discoveredTours.get(focusedTour) : null;
-    const reference = cached || buildReferenceFromTourId(focusedTour, pageTour.kind);
+    const cached = pageTour.kind === "discover" && !pageTour.shareToken ? state.discoveredTours.get(focusedTour) : null;
+    const reference = cached || buildReferenceFromTourId(focusedTour, pageTour.kind, pageTour.shareToken);
     if (!reference) {
       logDebug("focused-tour:unsupported-id", { focusedTour });
       return;
@@ -235,9 +271,10 @@
    *
    * @param {string} rawId - The tour id, optionally prefixed with "e".
    * @param {"discover"|"tour"} [kind="discover"] - How to interpret a numeric id.
+   * @param {string|null} [shareToken=null] - Share token of a private tour shared by link.
    * @returns {Object|null} A track reference, or null for unknown id formats.
    */
-  function buildReferenceFromTourId(rawId, kind = "discover") {
+  function buildReferenceFromTourId(rawId, kind = "discover", shareToken = null) {
     const text = String(rawId).trim().toLowerCase();
     const match = text.match(/^(e?)(\d+)$/);
     if (!match) {
@@ -250,8 +287,8 @@
 
     if (kind === "tour" && !isEditorial) {
       return {
-        coordinatesUrl: `${apiBase}/tours/${tourId}/coordinates`,
-        metadataUrl: `${apiBase}/tours/${tourId}/`,
+        coordinatesUrl: withShareToken(`${apiBase}/tours/${tourId}/coordinates`, shareToken),
+        metadataUrl: withShareToken(`${apiBase}/tours/${tourId}/`, shareToken),
         resourceName: "tours",
         tourId,
         name: "",
@@ -261,8 +298,8 @@
 
     const resourceName = isEditorial ? "tours" : "smart_tours";
     return {
-      coordinatesUrl: `${apiBase}/${resourceName}/${tourId}/coordinates`,
-      metadataUrl: `${apiBase}/discover_tours/${text}`,
+      coordinatesUrl: withShareToken(`${apiBase}/${resourceName}/${tourId}/coordinates`, shareToken),
+      metadataUrl: withShareToken(`${apiBase}/discover_tours/${text}`, shareToken),
       resourceName,
       tourId,
       name: "",
@@ -1034,7 +1071,7 @@
     }
 
     const references = candidates
-      .map(({ rawId, kind }) => buildReferenceFromTourId(rawId, kind))
+      .map(({ rawId, kind, shareToken }) => buildReferenceFromTourId(rawId, kind, shareToken))
       .filter(Boolean);
     if (references.length === 0) {
       setModalError(t("errorUnsupportedId"));
@@ -1068,8 +1105,9 @@
    * - "e984826729" or ?focusedTour=…: a discover tour;
    * - ".../tour/984826729": a regular tour;
    * - a bare "984826729": ambiguous, so first a regular tour, then a smart tour.
+   * Links of private tours keep their `share_token`.
    * @param {string} value - The raw input.
-   * @returns {Array<{rawId: string, kind: "discover"|"tour"}>} Candidates (empty if invalid).
+   * @returns {Array<{rawId: string, kind: "discover"|"tour", shareToken?: string|null}>} Candidates (empty if invalid).
    */
   function parseTourIdInput(value) {
     const text = String(value || "").trim();
@@ -1086,19 +1124,20 @@
 
     try {
       const url = new URL(text);
+      const shareToken = readShareToken(url);
       const focused = url.searchParams.get(FOCUSED_TOUR_PARAM);
       if (focused && idPattern.test(focused)) {
-        return [{ rawId: focused, kind: "discover" }];
+        return [{ rawId: focused, kind: "discover", shareToken }];
       }
 
       const tourMatch = url.pathname.match(/\/tours?\/(e?\d+)(?:[/?#]|$)/i);
       if (tourMatch) {
-        return [{ rawId: tourMatch[1], kind: /^e/i.test(tourMatch[1]) ? "discover" : "tour" }];
+        return [{ rawId: tourMatch[1], kind: /^e/i.test(tourMatch[1]) ? "discover" : "tour", shareToken }];
       }
 
       const discoverMatch = url.pathname.match(/\/(?:smarttour|discover_tours)\/(e?\d+)(?:[/?#]|$)/i);
       if (discoverMatch) {
-        return [{ rawId: discoverMatch[1], kind: "discover" }];
+        return [{ rawId: discoverMatch[1], kind: "discover", shareToken }];
       }
     } catch (_error) {
       // Not a URL: fall through.
@@ -1314,10 +1353,23 @@
    * @param {Object} reference - Track reference containing coordinatesUrl, metadataUrl, name, tourId, and pageUrl.
    */
   async function downloadTrack(reference) {
-    const [coordinatesPayload, metadataPayload] = await Promise.all([
-      fetchJson(reference.coordinatesUrl),
+    let [coordinatesPayload, metadataPayload] = await Promise.all([
+      fetchJson(reference.coordinatesUrl).catch((error) => ({ error })),
       reference.metadataUrl ? fetchJson(reference.metadataUrl).catch(() => null) : Promise.resolve(null)
     ]);
+
+    // The API may refuse a tour the page itself could show (e.g. private
+    // tours): fall back to the data Komoot embeds in the page HTML.
+    if (!Array.isArray(coordinatesPayload?.items)) {
+      const inlineTour = readInlineTour(reference.tourId);
+      if (inlineTour) {
+        logDebug("download:inline-fallback", { tourId: reference.tourId, points: inlineTour.items.length });
+        coordinatesPayload = { items: inlineTour.items };
+        metadataPayload = metadataPayload || { name: inlineTour.name };
+      } else if (coordinatesPayload?.error) {
+        throw coordinatesPayload.error;
+      }
+    }
 
     if (!Array.isArray(coordinatesPayload.items)) {
       throw new Error(t("errorInvalidResponse"));
@@ -2108,18 +2160,81 @@
         continue;
       }
 
-      const coordinatesUrl = match[0];
+      const shareToken = readPageTour()?.shareToken || null;
+      const coordinatesUrl = withShareToken(match[0], shareToken);
       const resourceName = match[1];
       const tourId = match[2];
 
       return {
         coordinatesUrl,
-        metadataUrl: `https://api.komoot.de/${API_VERSION}/${resourceName}/${tourId}/`,
+        metadataUrl: withShareToken(`https://api.komoot.de/${API_VERSION}/${resourceName}/${tourId}/`, shareToken),
         resourceName,
         tourId,
         name: "",
         pageUrl: location.href
       };
+    }
+
+    return null;
+  }
+
+  /**
+   * Reads a tour embedded in the page HTML by Komoot, through
+   * `kmtBoot.setProps("<json>")`, at `page._embedded.tour`.
+   * @param {string|null} tourId - The numeric tour id the data must belong to.
+   * @returns {{items: Array<Object>, name: string}|null} The coordinates and name, or null.
+   */
+  function readInlineTour(tourId) {
+    if (!tourId) {
+      return null;
+    }
+
+    const marker = "kmtBoot.setProps(";
+    for (const script of document.scripts) {
+      const source = script.textContent || "";
+      const start = source.indexOf(marker);
+      if (start < 0) {
+        continue;
+      }
+
+      const literal = readStringLiteral(source, start + marker.length);
+      if (!literal) {
+        continue;
+      }
+
+      try {
+        const props = JSON.parse(JSON.parse(literal));
+        const tour = props?.page?._embedded?.tour;
+        const items = tour?._embedded?.coordinates?.items;
+        if (String(tour?.id) === String(tourId) && Array.isArray(items)) {
+          return { items, name: typeof tour.name === "string" ? tour.name.trim() : "" };
+        }
+      } catch (_error) {
+        logDebug("inline-tour:parse-failed", { tourId });
+      }
+    }
+
+    return null;
+  }
+
+  /**
+   * Extracts a double-quoted string literal (quotes included) starting at
+   * the given index, without a regex: the literal can be megabytes long.
+   * @param {string} source - The script source.
+   * @param {number} index - Index of the opening quote.
+   * @returns {string|null} The literal, or null if there is none.
+   */
+  function readStringLiteral(source, index) {
+    if (source[index] !== '"') {
+      return null;
+    }
+
+    for (let i = index + 1; i < source.length; i += 1) {
+      if (source[i] === "\\") {
+        i += 1;
+      } else if (source[i] === '"') {
+        return source.slice(index, i + 1);
+      }
     }
 
     return null;
