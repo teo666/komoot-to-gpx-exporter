@@ -12,7 +12,7 @@ This repository contains a minimal scaffold for a Chrome and Firefox extension t
 - UI in English, Italian, Spanish, German and French (follows the browser language; strings live in `src/_locales/<lang>/messages.json`)
 - GPX generation and filename sanitization in the content script
 - background download bridge using the browser downloads API
-- build script that emits separate `dist/chrome` and `dist/firefox` extension folders
+- build script that emits separate `dist/chrome` and `dist/firefox` extension folders, plus store-ready zip packages
 
 ## Project layout
 
@@ -36,8 +36,8 @@ npm run build
 
 This creates:
 
-- `dist/chrome`
-- `dist/firefox`
+- `dist/chrome` and `dist/firefox`: unpacked extensions, to load for development
+- `dist/komoot-gpx-chrome-<version>.zip` and `dist/komoot-gpx-firefox-<version>.zip`: packages to upload to the Chrome Web Store and AMO (`manifest.json` at the archive root, version read from the manifest)
 
 ## Load the extension
 
