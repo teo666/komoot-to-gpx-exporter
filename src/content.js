@@ -3,6 +3,7 @@
   const HEADER_ID = "komoot-gpx-export-header";
   const BODY_ID = "komoot-gpx-export-body";
   const COLLAPSE_ID = "komoot-gpx-export-collapse";
+  const QUICK_ADD_ID = "komoot-gpx-export-quick-add";
   const BADGE_ID = "komoot-gpx-export-badge";
   const BUTTON_ID = "komoot-gpx-export-button";
   const STATUS_ID = "komoot-gpx-export-status";
@@ -548,7 +549,24 @@
     collapseButton.type = "button";
     collapseButton.setAttribute("aria-controls", BODY_ID);
 
-    header.append(grip, heading, collapseButton);
+    // Shown only while collapsed: adds the current track without expanding.
+    const quickAddButton = document.createElement("button");
+    quickAddButton.id = QUICK_ADD_ID;
+    quickAddButton.type = "button";
+    quickAddButton.title = t("addTraceTitle");
+    quickAddButton.setAttribute("aria-label", t("addTrace"));
+    // Keep the header from starting a drag or toggling the panel.
+    for (const type of ["pointerdown", "mousedown"]) {
+      quickAddButton.addEventListener(type, (event) => {
+        event.stopPropagation();
+      });
+    }
+    quickAddButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+      handleAddTrace({ openPanel: false });
+    });
+
+    header.append(grip, heading, quickAddButton, collapseButton);
     header.addEventListener("click", () => {
       if (state.suppressHeaderClick) {
         state.suppressHeaderClick = false;
@@ -568,7 +586,9 @@
     button.type = "button";
     button.textContent = t("addTrace");
     button.title = t("addTraceTitle");
-    button.addEventListener("click", handleAddTrace);
+    button.addEventListener("click", () => {
+      handleAddTrace();
+    });
 
     const byIdButton = document.createElement("button");
     byIdButton.id = BY_ID_BUTTON_ID;
@@ -1298,8 +1318,10 @@
   /**
    * Click handler for the main "Add Trace" button. Discovers or uses
    * the currently active track endpoints and adds it to the saved list.
+   * @param {Object} [options]
+   * @param {boolean} [options.openPanel=true] - Whether to expand the panel afterwards.
    */
-  function handleAddTrace() {
+  function handleAddTrace(options = {}) {
     const endpoints = state.endpoints ?? (isListPage() ? null : discoverTourEndpoints());
     if (!endpoints) {
       setStatus(t("errorNoCoordinatesUrl"), "error");
@@ -1319,7 +1341,9 @@
       setStatus(t("statusAlreadyInList", label), "success");
     }
 
-    setPanelOpen(true);
+    if (options.openPanel !== false) {
+      setPanelOpen(true);
+    }
   }
 
   /**

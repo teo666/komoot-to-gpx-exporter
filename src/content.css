@@ -173,6 +173,47 @@
   transform: translateY(2px) rotate(-135deg);
 }
 
+/* Quick add: "+" in the header, only while collapsed */
+
+#komoot-gpx-export-quick-add {
+  flex: 0 0 auto;
+  appearance: none;
+  position: relative;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--kge-accent);
+  color: #162119;
+  cursor: pointer;
+}
+
+#komoot-gpx-export-quick-add::before,
+#komoot-gpx-export-quick-add::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 2px;
+  border-radius: 1px;
+  background: currentColor;
+  transform: translate(-50%, -50%);
+}
+
+#komoot-gpx-export-quick-add::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+#komoot-gpx-export-quick-add:active {
+  transform: scale(0.94);
+}
+
+#komoot-gpx-export-widget[data-collapsed="false"] #komoot-gpx-export-quick-add {
+  display: none;
+}
+
 /* Body */
 
 #komoot-gpx-export-body {
@@ -558,7 +599,8 @@
     }
   }
 
-  #komoot-gpx-export-collapse {
+  #komoot-gpx-export-collapse,
+  #komoot-gpx-export-quick-add {
     width: 40px;
     height: 40px;
   }
